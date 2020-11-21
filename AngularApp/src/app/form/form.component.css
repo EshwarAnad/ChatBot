@@ -1,0 +1,66 @@
+/* @import "~bootstrap/dist/css/bootstrap.min.css"; */
+.form {
+  width: 16rem;
+  height: 15rem;
+  margin: auto;
+  padding: 1rem;
+  margin-top: 1rem;
+  box-shadow: 0 0 10px rgb(32, 255, 255);
+  background: white;
+  border-radius: 15px;
+}
+.btn {
+  background-color: rgba(230, 21, 21, 0.774);
+  color: white;
+  font-weight: 900;
+
+  width: fit-content;
+  padding: 0.5rem 2rem;
+  border-radius: 25px;
+}
+.button {
+  display: flex;
+  justify-content: center;
+  padding-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.box-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 2rem;
+}
+input.ng-invalid.ng-touched {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #ff0303;
+}
+
+input.ng-valid {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #17f30f !important;
+}
+input[type="text"] {
+  background: transparent;
+  border: none;
+  border-bottom: 0.5px solid #5050502f;
+  height: 2rem;
+  padding-bottom: 1rem;
+}
+input:focus,
+input.form-control:focus {
+  outline: none !important;
+  outline-width: 0 !important;
+}
+
+p {
+  padding: 0 2.5rem;
+  text-align: center;
+  color: gray;
+}
+span {
+  color: grey;
+  font-size: x-small;
+  padding-bottom: 1rem;
+}

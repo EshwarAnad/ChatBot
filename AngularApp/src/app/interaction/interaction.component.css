@@ -1,0 +1,66 @@
+.icon {
+  width: 3rem;
+}
+.container {
+  padding: 0.7rem 1.4rem;
+  width: 100%;
+}
+.group {
+  display: flex;
+  flex-direction: row;
+
+  padding-bottom: 0.7rem;
+}
+.bot {
+  width: fit-content;
+  height: fit-content;
+  padding-right: 0.5rem;
+}
+.bot-message {
+  color: white;
+  background: rgb(105, 105, 105);
+  text-align: start;
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  word-wrap: break-word;
+}
+p {
+  font-size: x-small;
+  color: grey;
+  font-weight: bold;
+  padding-left: 4rem;
+  padding-top: 0.5rem;
+}
+.image-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* margin-bottom: 2rem; */
+  align-items: center;
+}
+.images {
+  padding-left: 2rem;
+  padding-bottom: 2rem;
+}
+.images img {
+  width: 12rem;
+  height: 12rem;
+}
+button {
+  width: fit-content;
+  padding: 1rem 2rem;
+  border-radius: 25px;
+}
+.btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+h3 {
+  text-align: center;
+  color: darkolivegreen;
+  font-weight: 900;
+  padding-right: 2.4rem;
+}

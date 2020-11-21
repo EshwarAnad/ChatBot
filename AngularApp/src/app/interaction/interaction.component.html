@@ -1,0 +1,25 @@
+<ng-container *ngIf="filteritems.length > 0">
+  <div class="container" *ngFor="let i of filteritems">
+    <div class="group">
+      <div *ngIf="changetype(i)" [style]="background" class="bot bot-message">
+        {{ message }}
+      </div>
+      <div class="bot" *ngIf="changetype(i)">
+        <img class="icon" [src]="imagepath" alt="pic" />
+      </div>
+      <div *ngIf="!changetype(i)" class="image-box">
+        <div class="images" *ngFor="let i of items">
+          <img [src]="i.url" alt="pic" />
+          <h3>{{ i.name }}</h3>
+          <div class="btn">
+            <button [disabled]="locked" (click)="clickedProduct(i)">
+              {{ i.status }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p>{{ i.time | date: "E " }}{{ i.time | date: "shortTime" }}</p>
+  </div>
+</ng-container>

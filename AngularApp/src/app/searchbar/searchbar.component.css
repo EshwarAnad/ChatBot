@@ -1,0 +1,18 @@
+.searchbar {
+  width: 20rem;
+  /* height: auto; */
+  /* position: fixed;
+  bottom: 7.4rem; */
+  padding-bottom: 10rem;
+
+}
+input:focus,
+input.form-control:focus {
+  outline: none !important;
+  outline-width: 0 !important;
+}
+input[type="text"] {
+  border: none;
+  padding: 1rem;
+  letter-spacing: 0.05rem;
+}

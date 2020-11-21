@@ -1,0 +1,34 @@
+<div class="main">
+  <img
+    src="../../assets/images/cross.png"
+    *ngIf="this.isClicked"
+    class="cross"
+    (click)="clicked()"
+    alt="cross"
+  />
+  <img
+    src="../../assets/images/message.png"
+    alt="message-logo"
+    class="message"
+    (click)="clicked()"
+    *ngIf="!this.isClicked"
+  />
+  <div class="header" *ngIf="this.isClicked">
+    <app-titlebar></app-titlebar>
+  </div>
+  <div class="box" *ngIf="this.isClicked">
+    <!-- <div class="form"> -->
+    <app-form></app-form>
+    <!-- </div> -->
+
+    <app-interaction *ngIf="submitted"></app-interaction>
+    <!-- <div class="list" *ngIf="submitted">
+      <li *ngFor="let i of options" (click)="selectedValue(i)">{{ i }}</li>
+      <app-bot [passvalue]="passvalue" *ngIf="this.passvalue"></app-bot>
+    </div> -->
+  </div>
+  <!-- <div class="searchclass" *ngIf="this.isClicked && this.submitted"> -->
+  <div class="searchclass" *ngIf="this.isClicked">
+    <app-searchbar></app-searchbar>
+  </div>
+</div>

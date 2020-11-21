@@ -1,0 +1,36 @@
+{
+  "intro": ["Hello, I am Ema", "Hi, I am Ema", "Hello, My name is Ema"],
+  "help": [
+    "How may i assist you?",
+    "How can i help you?",
+    "What i can do for you?"
+  ],
+  "greetings": [
+    "i am good you little piece of love",
+    "i am fine, what about you",
+    "don't want to talk",
+    "i am good"
+  ],
+  "hobbies": [
+    "i love to talk with humans",
+    "i like to make friends like you",
+    "i like cooking"
+  ],
+  "pizzas": [
+    "which type of pizza do you like?",
+    "i can make a pizza for you",
+    "i would love to make a pizza for you",
+    "would you like cheese pizza?"
+  ],
+  "thank": ["Most welcome", "Not an issue", "Its my pleasure", "Mention not"],
+  "closing": [
+    "Ok bye-bye",
+    "As you wish, bye take-care",
+    "Bye-bye, see you soon.."
+  ],
+  "offers": ["All Users - Flat 35% OFF | Minimum Rs 200 Order"],
+  "complaints": [
+    "We are extremely sorry that you are having an issue or complaint with our services and regret the inconvenience. We will make every effort to provide a resolution. To get in touch you can email us on foodya_support@foody.co.in"
+  ],
+  "ok": ["Okay. Anything else I can help you with?"]
+}
