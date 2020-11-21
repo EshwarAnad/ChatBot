@@ -23,7 +23,7 @@ export class BotComponent implements OnInit {
   deviceInfo = null;
   currentDate: Date;
   filteritems: any;
-  locked = true;
+  locked = false;
   imagepath = '../../assets/images/bot.png';
   message = '';
   background = '';
@@ -42,15 +42,17 @@ export class BotComponent implements OnInit {
     },
   ];
   ngOnInit(): void {
-    this.epicFunction();
     this.systeminfo.getIPAddress().subscribe(
       (response) => this.userservice.addinfo(response).subscribe(),
       (error) => console.log(error)
     );
     this.userservice.getUserData().subscribe(
-      (response) => {
-        this.purchasedItems = response[0].orderedItems;
+      (response: any) => {
+        console.log(response.orderedItems);
+        //console.log(response);
         this.changePurchasedValue();
+        console.log('done');
+        console.log(this.locked);
       },
       (error) => console.log(error)
     );
@@ -68,8 +70,10 @@ export class BotComponent implements OnInit {
   }
   changePurchasedValue() {
     for (const key of Object.keys(this.items)) {
+      console.log(this.items[key].name);
       if (this.items[key].name == this.purchasedItems) {
         this.items[key].status = 'Purchased';
+        this.locked = true;
       }
     }
   }
@@ -102,7 +106,7 @@ export class BotComponent implements OnInit {
     this.userservice.addinfo({ orderedItems: i.name }).subscribe(
       (response) => {
         i.status = 'Purchased';
-        this.locked = false;
+        this.locked = true;
       },
       (error) => console.log(error)
     );

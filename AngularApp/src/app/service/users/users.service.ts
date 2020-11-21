@@ -12,7 +12,8 @@ export class UsersService {
     { message: 'Hi, how can I help you today?', type: 'bot', time: new Date() },
   ]);
   constructor(private http: HttpClient) {}
-  readonly baseURL = 'http://localhost:3000/users';
+  //readonly baseURL = 'http://localhost:3000/users';
+  readonly baseURL = 'https://pizaa-chatbot.herokuapp.com/users';
 
   //Post user details
   postItems(user) {

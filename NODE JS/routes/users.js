@@ -30,7 +30,8 @@ router.post("/", async (req, res) => {
 });
 router.get("/:email", async (req, res) => {
 	try {
-		const user = await User.find();
+		const email = req.params.email;
+		const user = await User.findOne({ email: email });
 		res.json(user);
 	} catch (err) {
 		res.json({ message: err });
