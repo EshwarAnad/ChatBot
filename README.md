@@ -38,6 +38,6 @@ Open [http://localhost:4000](http://localhost:4000) to view it in the browser.
   <img src="https://github.com/rounakbhowmick/ChatBot/blob/main/Layout3.png" width="800px">
 </p>
 
-Refer: https://github.com/rounakbhowmick/Spacy-Ball-v2
+Refer: https://github.com/rounakbhowmick/ChatBot
 
-Link:  https://spacyball-rounak.netlify.app/
+Link:  pizaa-chatbot.herokuapp.com/
