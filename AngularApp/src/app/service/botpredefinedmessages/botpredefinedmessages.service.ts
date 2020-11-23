@@ -9,10 +9,13 @@ export class BotpredefinedmessagesService {
   temp;
   messages(value) {
     value = value.toLowerCase();
+    value = value.replace(/"|'|-/gi, '');
+
     if (
       value.includes('hi') ||
       value.includes('hello') ||
-      value.includes('hey')
+      value.includes('hey') ||
+      value.includes('whatsup')
     ) {
       return data.intro[Math.floor(Math.random() * data.intro.length)];
     } else if (value.includes('thank')) {
@@ -44,9 +47,14 @@ export class BotpredefinedmessagesService {
       value.includes('items') ||
       value.includes('order piza') ||
       value.includes('popular piza') ||
-      value.includes('popular product')
+      value.includes('popular product') ||
+      value.includes('order item') ||
+      value.includes('food item') ||
+      value.includes('place order')
     ) {
       return 'items';
+    } else {
+      return "Sorry it's confusing";
     }
     // return this.temp;
   }

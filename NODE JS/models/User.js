@@ -20,9 +20,13 @@ const PostSchema = mongoose.Schema({
 		type: String,
 		required: false,
 	},
-	// systeminfo:{
-	// 	type:Object,
-	// 	required:false,
-	// }
+	systeminfo: {
+		type: Object,
+		required: false,
+	},
+	messages: {
+		type: Array,
+		required: false,
+	},
 });
 module.exports = mongoose.model("Users", PostSchema);

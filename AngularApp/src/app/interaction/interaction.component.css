@@ -58,6 +58,19 @@ button {
   justify-content: center;
   margin-top: 2rem;
 }
+button {
+  background: rgb(243, 130, 25);
+  color: white;
+  font-weight: 900;
+  letter-spacing: 0.1rem;
+  cursor: pointer;
+  border: none;
+}
+button[disabled="disabled"],
+button:disabled {
+  background: rgba(243, 130, 25, 0.562);
+  cursor: auto;
+}
 h3 {
   text-align: center;
   color: darkolivegreen;

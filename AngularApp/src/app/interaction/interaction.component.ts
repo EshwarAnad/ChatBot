@@ -5,6 +5,7 @@ import { Item } from '../../models/item';
 import { Component, OnInit, Input } from '@angular/core';
 import { error } from 'protractor';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-interaction',
@@ -15,12 +16,11 @@ export class BotComponent implements OnInit {
   constructor(
     private itemsService: ItemsService,
     private userservice: UsersService,
-    private systeminfo: SysteminfoService,
-    private deviceService: DeviceDetectorService
+    private systeminfo: SysteminfoService
   ) {}
   Items = [];
   purchasedItems: String;
-  deviceInfo = null;
+
   currentDate: Date;
   filteritems: any;
   locked = false;
@@ -42,17 +42,43 @@ export class BotComponent implements OnInit {
     },
   ];
   ngOnInit(): void {
-    this.systeminfo.getIPAddress().subscribe(
-      (response) => this.userservice.addinfo(response).subscribe(),
-      (error) => console.log(error)
-    );
-    this.userservice.getUserData().subscribe(
+    //Get Users IP Address
+    // this.systeminfo.getIPAddress().subscribe(
+    //   (response) => this.userservice.addinfo(response).subscribe(),
+    //   (error) => console.log(error)
+    // );
+    //Shortcut
+    this.systeminfo
+      .getIPAddress()
+      .pipe(switchMap((response) => this.userservice.addinfo(response)))
+      .subscribe();
+
+    //Setting device info
+    // const response = this.systeminfo.deviceinformation();
+    // const sysinfo = {
+    //   systemInfo: {
+    //     browser: response.browser,
+    //     browser_version: response.browser_version,
+    //     os: response.os_version,
+    //   },
+    // };
+    const sysInfo = this.systeminfo.deviceinformation();
+    const newObjectFormat = {
+      systeminfo: {
+        browser: sysInfo.browser,
+        browser_version: sysInfo.browser_version,
+        os: sysInfo.os_version,
+      },
+    };
+    this.userservice.addinfo(newObjectFormat).subscribe();
+    // console.log(info);
+    //Checking whether user purchased any goods or not,if yes then changing the status from "Buy" to "Purchased"
+    this.userservice.getUserData(localStorage.getItem('email')).subscribe(
       (response: any) => {
-        console.log(response.orderedItems);
-        //console.log(response);
-        this.changePurchasedValue();
-        console.log('done');
-        console.log(this.locked);
+        if (response != null) {
+          this.purchasedItems = response.orderedItems;
+          this.changePurchasedValue();
+        }
       },
       (error) => console.log(error)
     );
@@ -60,33 +86,31 @@ export class BotComponent implements OnInit {
     this.userservice.message.subscribe((value) => {
       this.filteritems = value;
     });
-    this.setItem();
+    // this.setItem();
     this.currentDate = new Date();
   }
-  epicFunction() {
-    console.log('hello `Home` component');
-    this.deviceInfo = this.deviceService.getDeviceInfo();
-    console.log(this.deviceInfo);
-  }
+
+  //Disabling purchased button and changing it "Buy" to "Purchase"
   changePurchasedValue() {
     for (const key of Object.keys(this.items)) {
-      console.log(this.items[key].name);
       if (this.items[key].name == this.purchasedItems) {
         this.items[key].status = 'Purchased';
         this.locked = true;
       }
     }
   }
-  setItem() {
-    this.itemsService.getItems().subscribe(
-      (response) => {
-        this.Items = response as Item[];
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
+  // setItem() {
+  //   this.itemsService.getItems().subscribe(
+  //     (response) => {
+  //       this.Items = response as Item[];
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //     }
+  //   );
+  // }
+
+  //Changing type user and value in html
   changetype(val) {
     if (val.type == 'bot' && val.message == 'items') {
       return false;
@@ -102,6 +126,7 @@ export class BotComponent implements OnInit {
       return true;
     }
   }
+  //When users clicks the food item
   clickedProduct(i) {
     this.userservice.addinfo({ orderedItems: i.name }).subscribe(
       (response) => {

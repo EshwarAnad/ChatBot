@@ -10,24 +10,32 @@ import { error } from 'protractor';
 export class FormComponent implements OnInit {
   signupForm: FormGroup;
   submitted = true;
-  obj: Object;
+  obj: any;
   constructor(private userservice: UsersService) {}
   //:NgForm
 
   onSubmit() {
     this.obj = this.signupForm.controls.userData.value;
-    this.userservice.postItems(this.obj).subscribe(
+    this.userservice.getUserData(this.obj.email).subscribe(
       (response) => {
-        // console.log(response);
+        if (response == null) {
+          //Post data when its not present in database
+          this.userservice.postItems(this.obj).subscribe(
+            (response: any) => {
+              this.userservice.savelocal(response.email, response.phonenumber);
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        } else {
+          this.userservice.savelocal(this.obj.email, this.obj.phonenumber);
+        }
         this.userservice.login.next(true);
         this.submitted = false;
       },
-      (error) => {
-        console.log(error);
-      }
+      (error) => console.log(error)
     );
-
-    console.log(this.obj);
   }
   ngOnInit(): void {
     let a = this.userservice.getlocal();
