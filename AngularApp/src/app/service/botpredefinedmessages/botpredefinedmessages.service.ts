@@ -50,7 +50,9 @@ export class BotpredefinedmessagesService {
       value.includes('popular product') ||
       value.includes('order item') ||
       value.includes('food item') ||
-      value.includes('place order')
+      value.includes('place order') ||
+      value.includes('order') ||
+      value.includes('order pizaa')
     ) {
       return 'items';
     } else {

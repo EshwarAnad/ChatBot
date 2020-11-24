@@ -15,15 +15,13 @@ export class UsersService {
     { message: 'Hi, how can I help you today?', type: 'bot', time: new Date() },
   ]);
   constructor(private http: HttpClient) {}
-  readonly baseURL = 'http://localhost:3000/users';
-  // readonly baseURL = 'https://pizaa-chatbot.herokuapp.com/users';
+  //readonly baseURL = 'http://localhost:3000/users';
+  readonly baseURL = 'https://pizaa-chatbot.herokuapp.com/users';
 
   //Post user details
   postItems(user) {
     return this.http.post(this.baseURL, user);
   }
-
-  //Saving data in local storage
 
   savelocal(emailid, phonenumber) {
     localStorage.setItem('email', emailid);
@@ -45,7 +43,6 @@ export class UsersService {
     this.addinfo(objFormat).subscribe();
   }
   addmessage(messageObj) {
-    // console.log(messageObj);
     this.storemessagetodatabase(messageObj);
     this.message.subscribe((value) => (this.allmsg = value));
     this.allmsg.push(messageObj[0]);
@@ -55,7 +52,6 @@ export class UsersService {
   }
   //Add IP and Ordered items
   addinfo(item) {
-    console.log(item);
     let newurl = this.baseURL.concat('/' + localStorage.getItem('email'));
     return this.http.patch(newurl, item);
   }

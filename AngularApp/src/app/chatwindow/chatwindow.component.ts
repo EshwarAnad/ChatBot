@@ -1,5 +1,6 @@
 import { UsersService } from './../service/users/users.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { error } from 'protractor';
 
 @Component({
   selector: 'app-chatwindow',
@@ -7,21 +8,37 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./chatwindow.component.css'],
 })
 export class ChatwindowComponent implements OnInit {
+  @ViewChild('target') private myScrollContainer: ElementRef;
+
+  scrollToElement(): void {
+    if (this.myScrollContainer) {
+      this.myScrollContainer.nativeElement.scroll({
+        top: this.myScrollContainer.nativeElement.scrollHeight,
+        left: 0,
+        behavior: 'smooth',
+      });
+    }
+  }
   isClicked = false;
   submitted: Boolean = false;
+  container = document.getElementById('box');
   constructor(private userservice: UsersService) {}
   passvalue = '';
   usermessage = '';
+  ngAfterViewChecked(): void {
+    this.userservice.message.subscribe((value: any) => {
+      if (value[value.length - 1]) this.scrollToElement();
+    });
+  }
   ngOnInit(): void {
     let a = this.userservice.getlocal();
-    //    this.userservice.login.subscribe((value) => (this.submitted = !value));
     this.userservice.login.subscribe((value) => {
-      // console.log(`Chat Window ${value}`);
       this.submitted = value;
     });
     if (a) this.submitted = true;
     else this.submitted = false;
   }
+
   clicked() {
     if (this.isClicked) this.isClicked = false;
     else this.isClicked = true;

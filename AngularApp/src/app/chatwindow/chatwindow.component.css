@@ -1,11 +1,11 @@
 .box {
-  top: 6.9rem;
+  top: 7.4rem;
   right: 4rem;
   position: absolute;
   width: 20rem;
   height: 22rem;
   background-color: rgba(255, 255, 255, 0.774);
-
+  /* scroll-behavior: smooth; */
   overflow-y: scroll;
   /* border: 5px solid red; */
 }

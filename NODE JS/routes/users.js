@@ -45,7 +45,6 @@ router.patch("/:email", async (req, res, next) => {
 		const email = req.params.email;
 		let updates = req.body;
 		if (Object.keys(updates) == "messages") {
-			//console.log(updates.messages);
 			const findone = await User.findOne({ email: email });
 			findone.messages.push(updates.messages);
 			findone.save();
@@ -57,32 +56,5 @@ router.patch("/:email", async (req, res, next) => {
 		console.log(res.json(error));
 	}
 });
-// router.patch("/:email", async (req, res, next) => {
-// 	console.log("hn");
-// 	try {
-// 		const email = req.params.email;
-// 		const updates = req.body;
-// 		//console.log(updates.messages);
-// 		const result = await User.findOne({ email: email });
-// 		if (result) {
-// 			result.messages.push(updates.messages);
-// 			let objFormat = {
-// 				messages: result.messages,
-// 			};
-// 			console.log(objFormat);
-// 			User.messages = objFormat;
-// 			const updatedMesssage = await User.save();
-// 			if (updatedMesssage) {
-// 				return res
-// 					.status(200)
-// 					.send({ message: "Messsage Updated", data: updatedMesssage });
-// 			}
-// 			console.log(`OjectTest${objFormat}`);
-// 			res.send(result);
-// 		}
-// 		return res.status(500).send({ message: " Error in Adding message." });
-// 	} catch (error) {
-// 		console.log(res.json(error));
-// 	}
-// });
+
 module.exports = router;

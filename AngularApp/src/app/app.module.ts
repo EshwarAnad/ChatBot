@@ -9,6 +9,7 @@ import { TitlebarComponent } from './titlebar/titlebar.component';
 import { FormComponent } from './form/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SearchbarComponent } from './searchbar/searchbar.component';
+
 @NgModule({
   declarations: [
     AppComponent,
