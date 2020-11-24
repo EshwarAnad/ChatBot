@@ -26,8 +26,8 @@ export class BotpredefinedmessagesService {
       value.includes('by')
     )
       return data.closing[Math.floor(Math.random() * data.closing.length)];
-    else if (value.includes('thank'))
-      return data.thank[Math.floor(Math.random() * data.thank.length)];
+    else if (value.includes('who'))
+      return data.Ema[Math.floor(Math.random() * data.Ema.length)];
     else if (value.includes('how are you') || value.includes('how are u'))
       return data.greetings[Math.floor(Math.random() * data.greetings.length)];
     else if (value.includes('offer'))
@@ -51,8 +51,8 @@ export class BotpredefinedmessagesService {
       value.includes('order item') ||
       value.includes('food item') ||
       value.includes('place order') ||
-      value.includes('order') ||
-      value.includes('order pizaa')
+      value.includes('order pizaa') ||
+      value.includes('order pizza')
     ) {
       return 'items';
     } else {

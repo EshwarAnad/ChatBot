@@ -1,11 +1,22 @@
 <ng-container *ngIf="filteritems.length > 0">
   <div class="container" *ngFor="let i of filteritems">
     <div class="group">
-      <div *ngIf="changetype(i)" [style]="background" class="bot bot-message">
+      <div
+        *ngIf="changetype(i) && i.type == 'bot'"
+        [style]="background"
+        class="bot bot-message"
+      >
         {{ message }}
       </div>
       <div class="bot" *ngIf="changetype(i)">
         <img class="icon" [src]="imagepath" alt="pic" />
+      </div>
+      <div
+        *ngIf="changetype(i) && i.type == 'user'"
+        [style]="background"
+        class="bot bot-message"
+      >
+        {{ message }}
       </div>
       <div *ngIf="!changetype(i)" class="image-box">
         <div class="images" *ngFor="let i of items">
@@ -19,7 +30,6 @@
         </div>
       </div>
     </div>
-
     <p>{{ i.time | date: "E " }}{{ i.time | date: "shortTime" }}</p>
   </div>
 </ng-container>

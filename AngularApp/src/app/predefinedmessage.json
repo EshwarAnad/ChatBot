@@ -1,5 +1,9 @@
 {
-  "intro": ["Hello, I am Ema", "Hi, I am Ema", "Hello, My name is Ema"],
+  "intro": [
+    "Hello 👋, I am Ema",
+    "Hi 👋, I am Ema",
+    "Hello 👋, My name is Ema"
+  ],
   "help": [
     "How may i assist you?",
     "How can i help you?",
@@ -32,5 +36,9 @@
   "complaints": [
     "We are extremely sorry that you are having an issue or complaint with our services and regret the inconvenience. We will make every effort to provide a resolution. To get in touch you can email us on foodya_support@foody.co.in"
   ],
-  "ok": ["Okay. Anything else I can help you with?"]
+  "ok": ["Okay. Anything else I can help you with?"],
+  "Ema": [
+    "I'm your Foodya Assistant, and I can place orders for you",
+    "I'm your Ema.If you need anything just ask,your wish is my command 🙏"
+  ]
 }

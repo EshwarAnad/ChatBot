@@ -99,16 +99,6 @@ export class BotComponent implements OnInit {
       }
     }
   }
-  // setItem() {
-  //   this.itemsService.getItems().subscribe(
-  //     (response) => {
-  //       this.Items = response as Item[];
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //     }
-  //   );
-  // }
 
   //Changing type user and value in html
   changetype(val) {

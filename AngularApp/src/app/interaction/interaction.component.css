@@ -16,6 +16,7 @@
   height: fit-content;
   padding-right: 0.5rem;
 }
+
 .bot-message {
   color: white;
   background: rgb(105, 105, 105);
@@ -30,7 +31,7 @@ p {
   font-size: x-small;
   color: grey;
   font-weight: bold;
-  padding-left: 4rem;
+  padding-left: 0.1rem;
   padding-top: 0.5rem;
 }
 .image-box {

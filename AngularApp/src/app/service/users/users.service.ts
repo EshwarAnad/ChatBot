@@ -12,7 +12,12 @@ import { error } from 'protractor';
 export class UsersService {
   allmsg: Array<Object>;
   message = new BehaviorSubject<Array<any>>([
-    { message: 'Hi, how can I help you today?', type: 'bot', time: new Date() },
+    {
+      message: `Hi 👋,
+       How can I help you today?`,
+      type: 'bot',
+      time: new Date(),
+    },
   ]);
   constructor(private http: HttpClient) {}
   //readonly baseURL = 'http://localhost:3000/users';
