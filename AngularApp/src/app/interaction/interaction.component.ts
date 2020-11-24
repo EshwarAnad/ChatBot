@@ -27,6 +27,7 @@ export class BotComponent implements OnInit {
   imagepath = '../../assets/images/bot.png';
   message = '';
   background = '';
+  color = '';
   items = [
     {
       url:
@@ -112,7 +113,8 @@ export class BotComponent implements OnInit {
     } else if (val.type == 'user') {
       this.imagepath = '../../assets/images/man.png';
       this.message = val.message;
-      this.background = 'background: rgb(105, 105, 105);';
+      this.background = 'background:rgb(200,200,200)';
+      this.color = 'color:black';
       return true;
     }
   }

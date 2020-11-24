@@ -17,21 +17,23 @@
   padding-right: 0.5rem;
 }
 
-.bot-message {
+.message {
   color: white;
-  background: rgb(105, 105, 105);
+  background: rgb(139, 139, 139);
   text-align: start;
   padding: 0.5rem 1rem;
   border-radius: 15px;
   font-size: 0.8rem;
   font-weight: bold;
   word-wrap: break-word;
+  line-height: 1.4rem;
+  letter-spacing: 0.07rem;
 }
 p {
   font-size: x-small;
   color: grey;
   font-weight: bold;
-  padding-left: 0.1rem;
+  padding-left: 0.7rem;
   padding-top: 0.5rem;
 }
 .image-box {
@@ -46,8 +48,9 @@ p {
   padding-bottom: 2rem;
 }
 .images img {
-  width: 12rem;
+  width: 14rem;
   height: 12rem;
+  border-radius: 50%;
 }
 button {
   width: fit-content;
@@ -77,4 +80,8 @@ h3 {
   color: darkolivegreen;
   font-weight: 900;
   padding-right: 2.4rem;
+}
+.usermsg {
+  color: rgba(0, 0, 0, 0.822);
+  font-weight: 600;
 }

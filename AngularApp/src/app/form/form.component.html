@@ -26,7 +26,7 @@
             class="form-control"
             formControlName="email"
             id="email"
-            placeholder="Email"
+            placeholder="Enter your Email id"
           />
           <span
             *ngIf="
@@ -52,6 +52,23 @@
             "
             class="help-block"
             >Please enter a valid phonenumber</span
+          >
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            id="address"
+            formControlName="address"
+            placeholder="Enter your full address"
+          />
+          <span
+            *ngIf="
+              !signupForm.get('userData.address').valid &&
+              signupForm.get('userData.address').touched
+            "
+            class="help-block"
+            >Please enter a valid address</span
           >
         </div>
       </div>

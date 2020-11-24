@@ -53,6 +53,10 @@ export class FormComponent implements OnInit {
           Validators.required,
           Validators.pattern('[0-9]{10}'),
         ]),
+        address: new FormControl(null, [
+          Validators.required,
+          Validators.minLength(8),
+        ]),
       }),
     });
   }

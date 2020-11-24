@@ -4,7 +4,7 @@
       <div
         *ngIf="changetype(i) && i.type == 'bot'"
         [style]="background"
-        class="bot bot-message"
+        class="bot message"
       >
         {{ message }}
       </div>
@@ -14,7 +14,7 @@
       <div
         *ngIf="changetype(i) && i.type == 'user'"
         [style]="background"
-        class="bot bot-message"
+        class="bot message usermsg"
       >
         {{ message }}
       </div>

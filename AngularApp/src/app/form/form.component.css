@@ -1,12 +1,12 @@
 /* @import "~bootstrap/dist/css/bootstrap.min.css"; */
 .form {
-  width: 16rem;
-  height: 15rem;
+  width: 17rem;
+  height: 17.5rem;
   margin: auto;
   padding: 1rem;
   margin-top: 1rem;
   box-shadow: 0 0 10px rgb(32, 255, 255);
-  background: white;
+  background: rgba(104, 248, 229, 0.267);
   border-radius: 15px;
 }
 .btn {
@@ -21,8 +21,7 @@
 .button {
   display: flex;
   justify-content: center;
-  padding-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  padding-top: 1rem;
 }
 .box-container {
   display: flex;
