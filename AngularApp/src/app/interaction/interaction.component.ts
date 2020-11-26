@@ -19,8 +19,8 @@ export class BotComponent implements OnInit {
     private systeminfo: SysteminfoService
   ) {}
   Items = [];
-  purchasedItems: String;
 
+  purchasedItems;
   currentDate: Date;
   filteritems: any;
   locked = false;
@@ -34,35 +34,74 @@ export class BotComponent implements OnInit {
         'https://images.pexels.com/photos/708587/pexels-photo-708587.jpeg?cs=srgb&dl=pexels-sydney-troxell-708587.jpg&fm=jpg',
       name: 'Farm House',
       status: 'Buy Now',
+      price: 150,
+      locked: false,
     },
     {
       url:
         'https://images.pexels.com/photos/3762075/pexels-photo-3762075.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
       name: 'Deluxe Veggie',
+      price: 300,
       status: 'Buy Now',
+      locked: false,
     },
   ];
+  //Checking whether generated value exists in db or not
+  async check(generatedvalue) {
+    await this.userservice.getOrderid(generatedvalue).subscribe(
+      (response) => {
+        if (Object.keys(response).length == 0) {
+          return true;
+        } else return false;
+      },
+      (error) => {
+        console.log(error);
+        return false;
+      }
+    );
+    return false;
+  }
+  orderidgencontroller() {
+    let finalvalue = '';
+    while (true) {
+      let generatedvalue = this.OrderIDGEN();
+      if (this.check(generatedvalue)) {
+        finalvalue = generatedvalue;
+        break;
+      }
+    }
+    console.log(finalvalue);
+    return finalvalue;
+  }
+  alreadypurchasedstatus() {
+    //Checking whether user purchased any goods or not,if yes then changing the status from "Buy" to "Purchased"
+    this.userservice.getUserData(localStorage.getItem('email')).subscribe(
+      (response: any) => {
+        if (response != null) {
+          this.purchasedItems = response.orderedItems.map((val) => {
+            return val.name;
+          });
+
+          this.changePurchasedValue();
+        }
+      },
+      (error) => console.log(error)
+    );
+  }
   ngOnInit(): void {
+    //console.log(this.orderidgencontroller());
     //Get Users IP Address
     // this.systeminfo.getIPAddress().subscribe(
     //   (response) => this.userservice.addinfo(response).subscribe(),
     //   (error) => console.log(error)
     // );
     //Shortcut
+    this.alreadypurchasedstatus();
     this.systeminfo
       .getIPAddress()
       .pipe(switchMap((response) => this.userservice.addinfo(response)))
       .subscribe();
 
-    //Setting device info
-    // const response = this.systeminfo.deviceinformation();
-    // const sysinfo = {
-    //   systemInfo: {
-    //     browser: response.browser,
-    //     browser_version: response.browser_version,
-    //     os: response.os_version,
-    //   },
-    // };
     const sysInfo = this.systeminfo.deviceinformation();
     const newObjectFormat = {
       systeminfo: {
@@ -72,17 +111,6 @@ export class BotComponent implements OnInit {
       },
     };
     this.userservice.addinfo(newObjectFormat).subscribe();
-    // console.log(info);
-    //Checking whether user purchased any goods or not,if yes then changing the status from "Buy" to "Purchased"
-    this.userservice.getUserData(localStorage.getItem('email')).subscribe(
-      (response: any) => {
-        if (response != null) {
-          this.purchasedItems = response.orderedItems;
-          this.changePurchasedValue();
-        }
-      },
-      (error) => console.log(error)
-    );
 
     this.userservice.message.subscribe((value) => {
       this.filteritems = value;
@@ -94,9 +122,9 @@ export class BotComponent implements OnInit {
   //Disabling purchased button and changing it "Buy" to "Purchase"
   changePurchasedValue() {
     for (const key of Object.keys(this.items)) {
-      if (this.items[key].name == this.purchasedItems) {
+      if (this.purchasedItems.includes(this.items[key].name)) {
         this.items[key].status = 'Purchased';
-        this.locked = true;
+        this.items[key].locked = true;
       }
     }
   }
@@ -118,12 +146,31 @@ export class BotComponent implements OnInit {
       return true;
     }
   }
-  //When users clicks the food item
+  OrderIDGEN() {
+    let generatedOrderId = 'OD';
+    const validchars = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    for (let i = 0; i < 5; i++) {
+      const index = Math.floor(Math.random() * validchars.length);
+      generatedOrderId += validchars[index];
+    }
+    return generatedOrderId;
+  }
+  //When users clicks the food item storing in db
   clickedProduct(i) {
-    this.userservice.addinfo({ orderedItems: i.name }).subscribe(
+    let id = this.orderidgencontroller();
+    let obj = {
+      orderedItems: {
+        name: i.name,
+        pic: i.url,
+        price: i.price,
+        orderid: id,
+      },
+    };
+    this.userservice.addinfo(obj).subscribe(
       (response) => {
+        console.log(obj);
         i.status = 'Purchased';
-        this.locked = true;
+        i.locked = true;
       },
       (error) => console.log(error)
     );

@@ -39,14 +39,15 @@ export class BotpredefinedmessagesService {
     else if (
       value.includes('ok') ||
       value.includes('fine') ||
-      value.includes('fine') ||
       value.includes('got it')
     )
       return data.ok[Math.floor(Math.random() * data.ok.length)];
-    else if (
+    else if (value.includes('hobbies')) {
+      return data.hobbies[Math.floor(Math.random() * data.hobbies.length)];
+    } else if (
       value.includes('items') ||
       value.includes('order piza') ||
-      value.includes('popular piza') ||
+      value.includes('popular pizza') ||
       value.includes('popular product') ||
       value.includes('order item') ||
       value.includes('food item') ||

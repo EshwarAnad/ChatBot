@@ -23,7 +23,7 @@
           <img [src]="i.url" alt="pic" />
           <h3>{{ i.name }}</h3>
           <div class="btn">
-            <button [disabled]="locked" (click)="clickedProduct(i)">
+            <button [disabled]="i.locked" (click)="clickedProduct(i)">
               {{ i.status }}
             </button>
           </div>

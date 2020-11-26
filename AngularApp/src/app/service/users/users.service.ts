@@ -20,14 +20,17 @@ export class UsersService {
     },
   ]);
   constructor(private http: HttpClient) {}
-  // readonly baseURL = 'http://localhost:3000/users';
-  readonly baseURL = 'https://pizaa-chatbot.herokuapp.com/users';
+  readonly baseURL = 'http://localhost:3000/users';
+  // readonly baseURL = 'https://pizaa-chatbot.herokuapp.com/users';
 
   //Post user details
   postItems(user) {
     return this.http.post(this.baseURL, user);
   }
 
+  getOrderid(orderid) {
+    return this.http.get(this.baseURL + '/' + 'orderid' + '/' + orderid);
+  }
   savelocal(emailid, phonenumber) {
     localStorage.setItem('email', emailid);
     localStorage.setItem('phonenumber', phonenumber);

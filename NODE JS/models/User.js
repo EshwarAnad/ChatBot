@@ -17,7 +17,7 @@ const PostSchema = mongoose.Schema({
 		required: true,
 	},
 	orderedItems: {
-		type: String,
+		type: Array,
 		required: false,
 	},
 	ip: {
