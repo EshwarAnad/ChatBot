@@ -1,6 +1,9 @@
 .icon {
   width: 3rem;
 }
+button {
+  border: none;
+}
 .container {
   padding: 0.7rem 1.4rem;
   width: 100%;
@@ -52,7 +55,7 @@ p {
   height: 12rem;
   border-radius: 50%;
 }
-button {
+/* button {
   width: fit-content;
   padding: 1rem 2rem;
   border-radius: 25px;
@@ -61,8 +64,8 @@ button {
   display: flex;
   justify-content: center;
   margin-top: 2rem;
-}
-button {
+} */
+/* button {
   background: rgb(243, 130, 25);
   color: white;
   font-weight: 900;
@@ -74,14 +77,76 @@ button[disabled="disabled"],
 button:disabled {
   background: rgba(243, 130, 25, 0.562);
   cursor: auto;
-}
+} */
 h3 {
   text-align: center;
-  color: darkolivegreen;
+  color: rgb(0, 0, 0);
   font-weight: 900;
-  padding-right: 2.4rem;
 }
 .usermsg {
-  color: rgba(0, 0, 0, 0.822);
   font-weight: 600;
+}
+.arrow {
+  display: flex;
+  width: 4rem;
+
+  align-items: center;
+}
+.carousel {
+  display: flex;
+  justify-content: space-between;
+}
+.foodpic {
+  width: 90%;
+  border-radius: 50%;
+}
+li {
+  list-style: none;
+  padding-bottom: 0.5rem;
+}
+.food {
+  display: flex;
+  margin-left: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+.price {
+  color: rgb(255, 103, 1);
+}
+.btn {
+  width: fit-content;
+  background: rgb(94, 128, 0);
+  color: white;
+  font-weight: 900;
+  letter-spacing: 0.1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+}
+.btn[disabled="disabled"],
+.btn:disabled {
+  background: rgba(243, 130, 25, 0.562);
+  cursor: auto;
+}
+.buttonlist {
+  display: flex;
+  justify-content: center;
+}
+.start-options {
+  width: 100%;
+  padding: 0.3rem 2rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  border: 1px solid black;
+}
+.start-options:hover {
+  background: brown;
+  color: rgb(255, 255, 255);
+  border: 1px solid rgb(243, 243, 243);
+}
+button:focus {
+  outline: none !important;
+  outline-width: 0 !important;
+}
+.arrowbtn:disabled {
+  opacity: 50%;
 }

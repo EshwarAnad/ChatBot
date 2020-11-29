@@ -1,49 +1,83 @@
+import { MessageProperty } from './../../models/messageproperty';
 import { SysteminfoService } from './../service/systeminfo/systeminfo.service';
 import { UsersService } from '../service/users/users.service';
 import { ItemsService } from '../service/items/items.service';
+import * as imgdata from '../imageinfo.json';
 import { Item } from '../../models/item';
 import { Component, OnInit, Input } from '@angular/core';
 import { error } from 'protractor';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { switchMap } from 'rxjs/operators';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-interaction',
   templateUrl: './interaction.component.html',
   styleUrls: ['./interaction.component.css'],
 })
-export class BotComponent implements OnInit {
+export class InteractionComponent implements OnInit {
+  usermessageinfo: Array<MessageProperty> = [];
+  botmessageinfo: Array<MessageProperty> = [];
   constructor(
     private itemsService: ItemsService,
     private userservice: UsersService,
     private systeminfo: SysteminfoService
   ) {}
   Items = [];
-
+  current = 0;
+  foodtype: any;
   purchasedItems;
   currentDate: Date;
   filteritems: any;
+  filteredlist: any;
+  imgname: any;
+  length;
   locked = false;
   imagepath = '../../assets/images/bot.png';
   message = '';
   background = '';
   color = '';
-  items = [
+  imgurl = '';
+  imgprice;
+  imglocked;
+  imgstatus;
+
+  botmessage(val, msgtype, type) {
+    this.botmessageinfo.push({
+      message: val,
+      messagetype: msgtype,
+      type: type,
+      time: new Date(),
+    });
+  }
+  listclick(val) {
+    if (val.name == 'Place an Order') {
+      this.botmessage('Place an Order', 'message', 'user');
+    } else if (val.name == 'Veg') {
+      this.botmessage('Veg', 'message', 'user');
+    } else if (val.name == 'Non-Veg') {
+      this.botmessage('Non-Veg', 'message', 'user');
+    } else if (val.name == 'Track') {
+      this.botmessage('Please enter your order id', 'message', 'bot');
+    }
+
+    this.userservice.addmessage(this.botmessageinfo);
+    this.botmessageinfo = [];
+  }
+  startoptions = [
     {
-      url:
-        'https://images.pexels.com/photos/708587/pexels-photo-708587.jpeg?cs=srgb&dl=pexels-sydney-troxell-708587.jpg&fm=jpg',
-      name: 'Farm House',
-      status: 'Buy Now',
-      price: 150,
-      locked: false,
+      name: 'Place an Order',
     },
     {
-      url:
-        'https://images.pexels.com/photos/3762075/pexels-photo-3762075.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-      name: 'Deluxe Veggie',
-      price: 300,
-      status: 'Buy Now',
-      locked: false,
+      name: 'Track',
+    },
+  ];
+  types = [
+    {
+      name: 'Veg',
+    },
+    {
+      name: 'Non-Veg',
     },
   ];
   //Checking whether generated value exists in db or not
@@ -70,17 +104,37 @@ export class BotComponent implements OnInit {
         break;
       }
     }
-    console.log(finalvalue);
+
     return finalvalue;
+  }
+
+  changeImageType(i) {
+    if (i.message == 'Veg' || i.message == 'Non-Veg') {
+      i.message === 'Veg'
+        ? (this.foodtype = imgdata.vegpizaa)
+        : (this.foodtype = imgdata['non-vegpizaa']);
+      this.imgurl = this.foodtype[this.current]['url'];
+      this.imgname = this.foodtype[this.current]['name'];
+      this.imgprice = this.foodtype[this.current]['price'];
+      this.imgstatus = this.foodtype[this.current]['status'];
+      this.imglocked = this.foodtype[this.current]['locked'];
+      this.length = this.foodtype.length;
+      return true;
+    }
+    return false;
+  }
+  disabled() {
+    if (this.current == this.length - 1) return true;
   }
   alreadypurchasedstatus() {
     //Checking whether user purchased any goods or not,if yes then changing the status from "Buy" to "Purchased"
     this.userservice.getUserData(localStorage.getItem('email')).subscribe(
       (response: any) => {
         if (response != null) {
-          this.purchasedItems = response.orderedItems.map((val) => {
-            return val.name;
-          });
+          this.purchasedItems = response.orderedItems.map((val) => ({
+            name: val.name,
+            foodtype: val.foodtype,
+          }));
 
           this.changePurchasedValue();
         }
@@ -115,18 +169,24 @@ export class BotComponent implements OnInit {
     this.userservice.message.subscribe((value) => {
       this.filteritems = value;
     });
-    // this.setItem();
+
     this.currentDate = new Date();
   }
 
   //Disabling purchased button and changing it "Buy" to "Purchase"
   changePurchasedValue() {
-    for (const key of Object.keys(this.items)) {
-      if (this.purchasedItems.includes(this.items[key].name)) {
-        this.items[key].status = 'Purchased';
-        this.items[key].locked = true;
-      }
-    }
+    Object.values(this.purchasedItems).forEach((val: any) => {
+      let purchasedtype;
+      val.foodtype === 'Veg'
+        ? (purchasedtype = imgdata['vegpizaa'])
+        : (purchasedtype = imgdata['non-vegpizaa']);
+      Object.values(purchasedtype).forEach((itemname: any) => {
+        if (itemname.name == val.name) {
+          itemname.status = 'Purchased';
+          itemname.locked = true;
+        }
+      });
+    });
   }
 
   //Changing type user and value in html
@@ -136,13 +196,16 @@ export class BotComponent implements OnInit {
     } else if (val.type == 'bot') {
       this.imagepath = '../../assets/images/bot.png';
       this.message = val.message;
-      this.background = 'background: rgb(12, 138, 255)';
+      this.background = 'background: #558679';
+      this.color = 'color: rgb(255, 255, 255)';
       return true;
     } else if (val.type == 'user') {
       this.imagepath = '../../assets/images/man.png';
       this.message = val.message;
-      this.background = 'background:rgb(200,200,200)';
-      this.color = 'color:black';
+      // this.background = 'background:#16697a';
+      this.background = 'background:#D33F49';
+      this.color = 'color: rgb(255, 255, 255)';
+      //this.color = 'color:222831';
       return true;
     }
   }
@@ -160,17 +223,23 @@ export class BotComponent implements OnInit {
     let id = this.orderidgencontroller();
     let obj = {
       orderedItems: {
-        name: i.name,
-        pic: i.url,
-        price: i.price,
+        name: this.imgname,
+        pic: this.imgurl,
+        foodtype: i.message,
+        price: this.imgprice,
         orderid: id,
       },
     };
+    let text = `Hello ${localStorage.getItem(
+      'name'
+    )},Your order has been placed.Use this orderid to track your item ${id}`;
+    this.botmessage(text, 'message', 'bot');
+    this.userservice.addmessage(this.botmessageinfo);
+    this.botmessageinfo = [];
     this.userservice.addinfo(obj).subscribe(
       (response) => {
-        console.log(obj);
-        i.status = 'Purchased';
-        i.locked = true;
+        this.foodtype[this.current]['status'] = 'Purchased';
+        this.foodtype[this.current]['locked'] = true;
       },
       (error) => console.log(error)
     );

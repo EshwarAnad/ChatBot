@@ -18,6 +18,8 @@ export class BotpredefinedmessagesService {
       value.includes('whatsup')
     ) {
       return data.intro[Math.floor(Math.random() * data.intro.length)];
+    } else if (value.includes('status')) {
+      return 'startoptions';
     } else if (value.includes('thank')) {
       return data.thank[Math.floor(Math.random() * data.thank.length)];
     } else if (
@@ -53,9 +55,10 @@ export class BotpredefinedmessagesService {
       value.includes('food item') ||
       value.includes('place order') ||
       value.includes('order pizaa') ||
-      value.includes('order pizza')
+      value.includes('order pizza') ||
+      value.includes('order')
     ) {
-      return 'items';
+      return 'Place an Order';
     } else {
       return "Sorry it's confusing";
     }

@@ -15,13 +15,20 @@ export class UsersService {
     {
       message: `Hi 👋,
        How can I help you today?`,
+      messagetype: 'message',
+      type: 'bot',
+      time: new Date(),
+    },
+    {
+      message: `startoptions`,
+      messagetype: 'list',
       type: 'bot',
       time: new Date(),
     },
   ]);
   constructor(private http: HttpClient) {}
-  readonly baseURL = 'http://localhost:3000/users';
-  // readonly baseURL = 'https://pizaa-chatbot.herokuapp.com/users';
+  //readonly baseURL = 'http://localhost:3000/users';
+  readonly baseURL = 'https://pizaa-chatbot.herokuapp.com/users';
 
   //Post user details
   postItems(user) {
@@ -31,9 +38,10 @@ export class UsersService {
   getOrderid(orderid) {
     return this.http.get(this.baseURL + '/' + 'orderid' + '/' + orderid);
   }
-  savelocal(emailid, phonenumber) {
+  savelocal(emailid, phonenumber, name) {
     localStorage.setItem('email', emailid);
     localStorage.setItem('phonenumber', phonenumber);
+    localStorage.setItem('name', name);
   }
 
   //Getting data in local storage

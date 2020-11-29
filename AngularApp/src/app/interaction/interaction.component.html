@@ -1,6 +1,6 @@
 <ng-container *ngIf="filteritems.length > 0">
   <div class="container" *ngFor="let i of filteritems">
-    <div class="group">
+    <div class="group" *ngIf="i.messagetype != 'list'">
       <div
         *ngIf="changetype(i) && i.type == 'bot'"
         [style]="background"
@@ -18,16 +18,61 @@
       >
         {{ message }}
       </div>
-      <div *ngIf="!changetype(i)" class="image-box">
-        <div class="images" *ngFor="let i of items">
-          <img [src]="i.url" alt="pic" />
-          <h3>{{ i.name }}</h3>
-          <div class="btn">
-            <button [disabled]="i.locked" (click)="clickedProduct(i)">
-              {{ i.status }}
+    </div>
+    <ng-container *ngIf="i.message == 'startoptions'">
+      <div class="list" *ngFor="let i of startoptions" (click)="listclick(i)">
+        <li>
+          <button class="start-options">{{ i.name }}</button>
+        </li>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="i.message == 'Place an Order'">
+      <div class="types" *ngFor="let i of types" (click)="listclick(i)">
+        <li>
+          <button class="start-options">{{ i.name }}</button>
+        </li>
+      </div>
+    </ng-container>
+    <div *ngIf="changeImageType(i)" class="carousel">
+      <div class="left arrow">
+        <button
+          class="arrowbtn"
+          [disabled]="current == 0"
+          (click)="current = current - 1"
+        >
+          <img src="../../assets/images/left-arrow.png" alt="" />
+        </button>
+      </div>
+      <div class="food">
+        <ul>
+          <li>
+            <img class="foodpic" [src]="imgurl" alt="pic" />
+          </li>
+          <li>
+            <h3 class="name">{{ imgname }}</h3>
+          </li>
+          <li>
+            <h3 class="price">₹{{ imgprice }}</h3>
+          </li>
+          <li class="buttonlist">
+            <button
+              [disabled]="imglocked"
+              class="btn"
+              (click)="clickedProduct(i)"
+            >
+              {{ imgstatus }}
             </button>
-          </div>
-        </div>
+          </li>
+        </ul>
+      </div>
+      <div class="right arrow">
+        <button
+          class="arrowbtn"
+          [disabled]="disabled()"
+          (click)="current = current + 1"
+        >
+          <img src="../../assets/images/right-arrow.png" alt="" />
+        </button>
       </div>
     </div>
     <p>{{ i.time | date: "E " }}{{ i.time | date: "shortTime" }}</p>

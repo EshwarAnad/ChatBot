@@ -6,17 +6,26 @@
   padding: 1rem;
   margin-top: 1rem;
   box-shadow: 0 0 10px rgb(32, 255, 255);
-  background: rgba(104, 248, 229, 0.267);
+  background: #f6f5f5;
   border-radius: 15px;
 }
+button:focus {
+  outline: none !important;
+  outline-width: 0 !important;
+  border: none;
+}
 .btn {
-  background-color: rgba(230, 21, 21, 0.774);
+  background-color: rgba(230, 21, 21, 0.856);
   color: white;
   font-weight: 900;
-
+  border: none;
   width: fit-content;
   padding: 0.5rem 2rem;
   border-radius: 25px;
+}
+.btn[disabled="disabled"],
+.btn:disabled {
+  background-color: rgba(230, 21, 21, 0.541);
 }
 .button {
   display: flex;

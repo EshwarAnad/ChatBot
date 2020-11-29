@@ -19,8 +19,8 @@
   <div class="box" #target *ngIf="this.isClicked">
     <app-form></app-form>
     <!-- </div> -->
-
     <app-interaction *ngIf="submitted"></app-interaction>
+
     <!-- <div class="list" *ngIf="submitted">
       <li *ngFor="let i of options" (click)="selectedValue(i)">{{ i }}</li>
       <app-bot [passvalue]="passvalue" *ngIf="this.passvalue"></app-bot>

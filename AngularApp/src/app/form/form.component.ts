@@ -22,14 +22,22 @@ export class FormComponent implements OnInit {
           //Post data when its not present in database
           this.userservice.postItems(this.obj).subscribe(
             (response: any) => {
-              this.userservice.savelocal(response.email, response.phonenumber);
+              this.userservice.savelocal(
+                response.email,
+                response.phonenumber,
+                response.name
+              );
             },
             (error) => {
               console.log(error);
             }
           );
         } else {
-          this.userservice.savelocal(this.obj.email, this.obj.phonenumber);
+          this.userservice.savelocal(
+            this.obj.email,
+            this.obj.phonenumber,
+            this.obj.name
+          );
         }
         this.userservice.login.next(true);
         this.submitted = false;
